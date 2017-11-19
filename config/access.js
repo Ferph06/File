@@ -2,7 +2,6 @@
 const Q=require('q');
 const os = require('os');
 const fs=require('fs');
-
 const version=process.versions.node.split('.')[0];
 /*
 *sistemas que trae el metodo

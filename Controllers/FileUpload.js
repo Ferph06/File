@@ -10,6 +10,7 @@ const util=require('../Utils/Utils');
 *@return res
 */
 const createHtml =(req,res)=>{
+
     htmltopdf.setInputEncoding('UTF-8');
     htmltopdf.setOutputEncoding('UTF-8');
  let path='auxpdf.pdf',data=req.body;
@@ -22,11 +23,6 @@ const createHtml =(req,res)=>{
                         if(error) return res.status(500).send("ERROR");
                         res.sendFile(result.path+path);
               });
-        }).catch(err => {
-           res.status(500).send(err);
-      });
-
-      /**/
 }
 module.exports={
   createHtml
