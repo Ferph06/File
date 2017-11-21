@@ -8,8 +8,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 //Headers
 app.use((req, res, next)=>{
-    req.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Origin', '*');
+	res.setHeader("Access-Control-Allow-Origin", "*");
     res.header('Access-Control-Allow-Headers', 'X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Requested-Method');
     res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
     res.header('Allow', 'POST, OPTIONS, PUT, DELETE');
