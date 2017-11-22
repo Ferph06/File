@@ -4,7 +4,9 @@
   "description": "api para crear pdf a partir de un html",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js",
+    "install-service": "winser -i -s -a -n apiserve",
+    "uninstall-service": "winser -r -x -s -n apiserve"
   },
   "author": "Fernando Perez",
   "license": "ISC",
@@ -15,7 +17,8 @@
     "html-to-pdf": "^0.1.11",
     "mkdirp": "^0.5.1",
     "q": "^1.5.1",
-    "requestify": "^0.2.5"
+    "requestify": "^0.2.5",
+    "winser": "^1.0.2"
   },
   "devDependencies": {
     "nodemon": "^1.12.1"
