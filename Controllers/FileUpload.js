@@ -16,7 +16,7 @@ const createHtml =(req,res) => {
     if(data.html==undefined  || data.path==undefined || data.id==undefined || data.style==undefined) res.status(400).send("Hacen falta datos para procesar la peticion");
       requestify.get(data.style).then((result) => {
           let css=result.body;
-          let html="<html><head><meta charset=\"utf8\"><style>"+css+"</style></head><body>"+data.html+"</body></html>";
+          let html="<html><head><meta charset=\"utf8\"><style>"+css+" </style></head><body>"+data.html+"</body></html>";
           util.verifyDirectory(data.path).then(dir => {
               let finalname=(data.id.replace('&','').split('&').length>1)?data.id.replace('&','').split('&')[0]+"indicador":data.id.replace('&','');
               finalname=dir.path+finalname+pathn;

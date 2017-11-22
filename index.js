@@ -6,7 +6,8 @@ const api=require('./routes');
 const http = require('http');
 
 app.use(bodyParser.urlencoded({extended:true}));
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '80mb'}));
+//app.use(express.json({limit: '80mb'}));
 //Headers
 app.use((req, res, next)=>{
 		res.setHeader("Access-Control-Allow-Origin", "*");
