@@ -19,11 +19,8 @@ const createHtml =(req,res) => {
   let pathn='reporte.pdf'
 
     if(data.html==undefined  || data.path==undefined || data.id==undefined || data.style==undefined) res.status(400).send("Hacen falta datos para procesar la peticion");
-      Q.all([requestify.get(data.style),
-          requestify.get('http://13.66.58.238:60617/Biossmann/javax.faces.resource/components.css.bsmn?ln=primefaces&v=6.0'),
-          requestify.get('http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css')
-      ]).then(datab => {
-          let cssR=datab[0].body+"\n"+datab[1].body+"\n"+datab[2].body;
+      requestify.get(data.style).then(datab => {
+          let cssR=data.body;
           let html="<html><head><meta charset=\"utf8\"> <style>"+cssR+" \n "+imgcc+"</style></head><body>"+data.html+"</body></html>";
 
           util.verifyDirectory(data.path).then(dir => {
