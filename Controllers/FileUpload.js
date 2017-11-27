@@ -20,7 +20,7 @@ const createHtml =(req,res) => {
 
     if(data.html==undefined  || data.path==undefined || data.id==undefined || data.style==undefined) res.status(400).send("Hacen falta datos para procesar la peticion");
       requestify.get(data.style).then(datab => {
-          let cssR=data.body;
+          let cssR=datab.body;
           let html="<html><head><meta charset=\"utf8\"> <style>"+cssR+" \n "+imgcc+"</style></head><body>"+data.html+"</body></html>";
 
           util.verifyDirectory(data.path).then(dir => {
@@ -46,9 +46,10 @@ const createHtml =(req,res) => {
 }
 
 const  filePreHtml=(req,res) => {
+
 let data=req.body;
 let pathfinalname="";
-if(data.html==undefined || data.id==undefined || data.path==undefined) return res.status(400).send("Hacen falta datos en la peticion");
+if(data.html==undefined || data.id==undefined || data.path==undefined)  return res.status(400).send("Hacen falta datos en la peticion");
 util.verifyDirectory(data.path).then(result => {
     if(result.path=='') return res.status(500).send("ERROR");
       let finalname=data.id.replace('&','');
@@ -61,6 +62,8 @@ util.verifyDirectory(data.path).then(result => {
           res.status(200).send(urlfile);
       });
   }).catch(err => {
+
+
     return res.status(500).send("ERROR");
 });
 
