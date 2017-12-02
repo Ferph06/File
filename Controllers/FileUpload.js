@@ -1,8 +1,6 @@
 'use strict'
 const Q=require('q');
-const htmltopdf=require('html-to-pdf')
 const fs = require('fs');
-const pathnormalize=('path');
 const util=require('../Utils/Utils');
 const requestify=require('requestify');
 const pdf = require('html-pdf');
@@ -12,16 +10,17 @@ const pdf = require('html-pdf');
 *@return res
 */
 const createHtml =(req,res) => {
-
+  let  link="<link href=\"http://13.66.58.238:60617/Biossmann/resources/template/css/general.css\" rel=\"stylesheet\" type=\"text/css\"/>"
   let imgcc=".re-circle{width: 150px; height: 150px; box-sizing: border-box; float: left;padding-top: 5px; margin: 15px 30%;background: url(\"http://13.66.58.238:60617/Biossmann/resources/template/img/verificaciones/circle.png\") no-repeat;background-size: 100% 100%; text-align: center;} .re-left-div{width: 95%; min-height: 130px;box-sizing: border-box; float: right;margin: 0; padding: 0;}"
 
   let data=req.body;
   let pathn='reporte.pdf'
 
     if(data.html==undefined  || data.path==undefined || data.id==undefined || data.style==undefined) res.status(400).send("Hacen falta datos para procesar la peticion");
+
       requestify.get(data.style).then(datab => {
           let cssR=datab.body;
-          let html="<html><head><meta charset=\"utf8\"> <style>"+cssR+" \n "+imgcc+"</style></head><body>"+data.html+"</body></html>";
+          let html="<html><head><meta charset=\"utf8\">"+link+" <style>@font-face{ font-family:HelveticaNeueL;src:url(\"./Biossmann/resources/template/fonts/HelveticaNeue-Light.otf\");}  "+cssR+" \n "+imgcc+" \n </style></head><body>"+data.html+"</body></html>";
 
           util.verifyDirectory(data.path).then(dir => {
               let finalname=(data.id.replace('&','').split('&').length>1)?data.id.replace('&','').split('&')[0]+"indicador":data.id.replace('&','');
@@ -32,7 +31,7 @@ const createHtml =(req,res) => {
                     var file = fs.createReadStream(finalname);
                     var stat = fs.statSync(finalname);
                     res.setHeader('Content-Length', stat.size);
-                    res.setHeader('Content-Type', 'application/pdf');
+                    res.setHeader('Content-Type', 'application/octet-stream');
                     res.send(ok);
                     res.end();
                   });
@@ -54,6 +53,11 @@ util.verifyDirectory(data.path).then(result => {
     if(result.path=='') return res.status(500).send("ERROR");
       let finalname=data.id.replace('&','');
       finalname=data.path+finalname+"ReporteEjecutivo.pdf";
+      fs.writeFile('pdf.html',data.html,(err,ok) => {
+        if(err) return;
+        console.log("SE CREO");
+      });
+
       pdf.create(data.html).toFile(finalname,(err,ok) => {
           if (err) return res.status(500).send("ERROR");
           let urlfile={

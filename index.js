@@ -18,7 +18,6 @@ app.use((req, res, next)=>{
 				res.setHeader("Content-Transfer-Encoding", "binary");
 			  res.setHeader('Content-Type', 'application/pdf');
 				let id=req.params.id.replace('&','');
-				console.log(id);
 				let finalname=(id.split('&').length>1)?id.replace('&','').split('&')[0]+"indicador":id.replace('&','');
 				let filename=finalname+'reporte.pdf';
 				res.setHeader('Content-Disposition', 'attachment; filename='+filename+'');
