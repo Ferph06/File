@@ -21,7 +21,7 @@
     "winser": "^1.0.2"
   },
   "devDependencies": {
-    "nodemon": "^1.12.1"
+    "nodemon": "^1.12.5"
   },
   "repository": {
     "type": "git",

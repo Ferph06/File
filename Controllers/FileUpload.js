@@ -61,7 +61,7 @@ util.verifyDirectory(data.path).then(result => {
       pdf.create(data.html).toFile(finalname,(err,ok) => {
           if (err) return res.status(500).send("ERROR");
           let urlfile={
-            url:"http://13.66.58.238:5050/api/ReporteEjecutivo/"+data.id
+            url:"http://localhost:5050/api/ReporteEjecutivo/"+data.id
           }
           res.status(200).send(urlfile);
       });
