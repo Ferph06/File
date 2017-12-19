@@ -53,10 +53,10 @@ util.verifyDirectory(data.path).then(result => {
     if(result.path=='') return res.status(500).send("ERROR");
       let finalname=data.id.replace('&','');
       finalname=data.path+finalname+"ReporteEjecutivo.pdf";
-      fs.writeFile('pdf.html',data.html,(err,ok) => {
+    /*  fs.writeFile('pdf.html',data.html,(err,ok) => {
         if(err) return;
         console.log("SE CREO");
-      });
+      });*/
 
       pdf.create(data.html).toFile(finalname,(err,ok) => {
           if (err) return res.status(500).send("ERROR");
